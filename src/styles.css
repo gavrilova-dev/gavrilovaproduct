@@ -49,3 +49,20 @@
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+@keyframes scroll-hint {
+  0%   { transform: translateY(0); }
+  15%  { transform: translateY(-24px); }
+  30%  { transform: translateY(-24px); }
+  50%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.animate-scroll-hint {
+  animation: scroll-hint 3.6s ease-in-out 0.8s 2;
+}
+
+.mockup-scroll {
+  scrollbar-width: none;
+}
+.mockup-scroll::-webkit-scrollbar { display: none; }
