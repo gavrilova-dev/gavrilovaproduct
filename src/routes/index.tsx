@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { projects } from "@/lib/projects";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -23,48 +25,6 @@ const roles = [
   { title: "UX Writer", note: "Слово в интерфейсе — тоже часть решения." },
 ];
 
-const projects = [
-  {
-    tag: "Redesign",
-    subtag: "Product Design",
-    tone: "blue" as const,
-    title: "Редизайн главной страницы",
-    problem: "Главная перегружена: пользователи не находят ключевое действие за первые 10 секунд.",
-    solution: "Переосмыслила иерархию, вынесла один основной сценарий и убрала визуальный шум.",
-  },
-  {
-    tag: "Design System",
-    subtag: "Foundation",
-    tone: "pink" as const,
-    title: "UI Kit и основы дизайн-системы",
-    problem: "Каждая команда рисовала свои компоненты — консистентность и скорость страдали.",
-    solution: "Собрала базовый UI Kit с токенами и правилами, ускорив запуск фич в 2 раза.",
-  },
-  {
-    tag: "Feature Launch",
-    subtag: "UX Flow",
-    tone: "white" as const,
-    title: "Поддержка нескольких номеров",
-    problem: "Пользователи хотели держать несколько номеров в одном аккаунте без хаоса.",
-    solution: "Спроектировала логику переключения без потери контекста и с прозрачным биллингом.",
-  },
-  {
-    tag: "Scenario",
-    subtag: "Payments",
-    tone: "blue" as const,
-    title: "Переработка сценария пополнения",
-    problem: "Отвал на шаге оплаты: 3 из 10 пользователей не доходили до успешного платежа.",
-    solution: "Сократила сценарий до двух шагов, добавила понятные ошибки и подстановку сумм.",
-  },
-  {
-    tag: "Banking",
-    subtag: "Release",
-    tone: "pink" as const,
-    title: "Обновлённое банковское приложение",
-    problem: "Нужно выпустить новую версию приложения, сохранив привычки текущих клиентов.",
-    solution: "Вела продуктовую часть релиза: требования, сценарии, синк с разработкой, поддержка запуска.",
-  },
-];
 
 function Index() {
   return (
@@ -250,9 +210,11 @@ function Index() {
                     ? "from-accent-pink/30 to-accent-pink/0"
                     : "from-white/20 to-white/0";
               return (
-                <article
-                  key={p.title}
-                  className={`group relative rounded-[2rem] bg-glass-border p-px transition-all ${glow}`}
+                <Link
+                  key={p.slug}
+                  to="/projects/$slug"
+                  params={{ slug: p.slug }}
+                  className={`group relative block rounded-[2rem] bg-glass-border p-px transition-all ${glow}`}
                 >
                   <div className="flex h-full flex-col rounded-[1.9rem] bg-background/80 p-8 backdrop-blur-3xl">
                     <div className="mb-6 flex flex-wrap gap-2">
@@ -289,11 +251,11 @@ function Index() {
                       className={`mt-auto grid aspect-[16/9] w-full place-items-center overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} ring-1 ring-glass-border`}
                     >
                       <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
-                        {p.subtag}
+                        Открыть кейс →
                       </span>
                     </div>
                   </div>
-                </article>
+                </Link>
               );
             })}
           </div>
