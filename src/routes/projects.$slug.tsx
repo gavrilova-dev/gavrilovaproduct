@@ -42,6 +42,105 @@ export const Route = createFileRoute("/projects/$slug")({
   ),
 });
 
+/* ---------- Mockup pieces ---------- */
+
+function ScrollableScreenContent({ label }: { label: string }) {
+  // A tall placeholder "screen content" — user replaces later. Height > container triggers scroll.
+  return (
+    <div className="mockup-scroll relative h-full w-full overflow-y-auto">
+      <div className="animate-scroll-hint">
+        <div className="flex min-h-[180%] flex-col gap-3 p-4">
+          <div
+            className="absolute inset-0 opacity-40"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+              backgroundSize: "20px 20px",
+            }}
+          />
+          <div className="relative flex items-center justify-between">
+            <div className="h-2 w-14 rounded-full bg-white/15" />
+            <div className="h-2 w-8 rounded-full bg-white/10" />
+          </div>
+          <div className="relative h-24 rounded-2xl bg-white/[0.06] ring-1 ring-white/10" />
+          <div className="relative grid grid-cols-3 gap-2">
+            <div className="h-14 rounded-xl bg-white/[0.05] ring-1 ring-white/10" />
+            <div className="h-14 rounded-xl bg-white/[0.05] ring-1 ring-white/10" />
+            <div className="h-14 rounded-xl bg-white/[0.05] ring-1 ring-white/10" />
+          </div>
+          <div className="relative h-20 rounded-2xl bg-white/[0.04] ring-1 ring-white/10" />
+          <div className="relative h-16 rounded-2xl bg-white/[0.04] ring-1 ring-white/10" />
+          <div className="relative h-24 rounded-2xl bg-white/[0.05] ring-1 ring-white/10" />
+          <div className="relative h-16 rounded-2xl bg-white/[0.04] ring-1 ring-white/10" />
+          <div className="relative flex-1 rounded-2xl bg-white/[0.03] ring-1 ring-white/10" />
+          <div className="relative flex items-center justify-center pt-4">
+            <div className="font-mono text-[10px] uppercase tracking-widest text-muted">
+              {label}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PhoneMockup({ label }: { label: string }) {
+  return (
+    <div className="relative mx-auto w-full max-w-[280px]">
+      <div className="relative aspect-[9/19] rounded-[3rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+        <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-background/90 ring-1 ring-white/10" />
+        <div className="relative h-full w-full overflow-hidden rounded-[2.4rem] bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
+          <ScrollableScreenContent label={label} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function DesktopMockup({ label }: { label: string }) {
+  return (
+    <div className="relative mx-auto w-full max-w-[640px]">
+      <div className="relative aspect-[16/10] rounded-2xl border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
+        <div className="mb-2 flex items-center gap-1.5 px-2">
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+          <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
+        </div>
+        <div className="relative h-[calc(100%-1.75rem)] w-full overflow-hidden rounded-xl bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
+          <ScrollableScreenContent label={label} />
+        </div>
+      </div>
+      {/* stand */}
+      <div className="mx-auto mt-2 h-3 w-32 rounded-b-2xl bg-white/10" />
+      <div className="mx-auto h-1 w-48 rounded-full bg-white/5" />
+    </div>
+  );
+}
+
+function Arrow() {
+  return (
+    <div className="flex items-center justify-center py-4 md:py-0">
+      <div className="flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-white/[0.06] backdrop-blur-xl">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="h-6 w-6 text-foreground/70 md:rotate-0 rotate-90"
+        >
+          <path d="M5 12h14" />
+          <path d="m13 6 6 6-6 6" />
+        </svg>
+      </div>
+    </div>
+  );
+}
+
+/* ---------- Page ---------- */
+
 function ProjectPage() {
   const { project } = Route.useLoaderData() as { project: Project };
 
@@ -62,6 +161,9 @@ function ProjectPage() {
 
   const currentIndex = projects.findIndex((p) => p.slug === project.slug);
   const next = projects[(currentIndex + 1) % projects.length];
+
+  const Mockup = project.mockup.device === "desktop" ? DesktopMockup : PhoneMockup;
+  const isBeforeAfter = project.mockup.beforeAfter;
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
@@ -132,81 +234,79 @@ function ProjectPage() {
           </div>
         </section>
 
-        {/* Mockup — device with glass components floating */}
+        {/* 01 — Ключевые моменты */}
         <section className="mx-auto max-w-7xl px-6 py-16">
           <span className="mb-8 block font-mono text-xs uppercase tracking-[0.3em] text-accent-pink">
-            01 — Ключевые экраны
+            01 — Ключевые моменты
           </span>
 
           <div className="relative">
             <div className={`absolute inset-0 -z-10 rounded-[3rem] bg-gradient-to-br ${toneGradient} blur-3xl`} />
 
-            <div className="relative grid grid-cols-1 gap-8 rounded-[2.5rem] border border-glass-border bg-background/40 p-8 backdrop-blur-2xl md:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)] md:p-12">
-              {/* Phone mockup */}
-              <div className="relative mx-auto w-full max-w-[300px]">
-                <div className="relative aspect-[9/19] rounded-[3rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
-                  {/* Notch */}
-                  <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-background/90 ring-1 ring-white/10" />
-                  {/* Screen — placeholder for user's image */}
-                  <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-[2.4rem] bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
-                    {/* Grid placeholder */}
-                    <div
-                      className="absolute inset-0 opacity-40"
-                      style={{
-                        backgroundImage:
-                          "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
-                        backgroundSize: "20px 20px",
-                      }}
-                    />
-                    <div className="relative text-center">
-                      <div className="mx-auto mb-3 grid h-10 w-10 place-items-center rounded-xl bg-white/5 ring-1 ring-white/10">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          className="h-5 w-5 text-muted"
-                        >
-                          <rect x="3" y="3" width="18" height="18" rx="2" />
-                          <circle cx="9" cy="9" r="2" />
-                          <path d="m21 15-5-5L5 21" />
-                        </svg>
-                      </div>
-                      <div className="font-mono text-[10px] uppercase tracking-widest text-muted">
-                        Загрузите скрин
-                      </div>
+            <div className="relative rounded-[2.5rem] border border-glass-border bg-background/40 p-8 backdrop-blur-2xl md:p-12">
+              {/* Mockup(s) */}
+              {isBeforeAfter ? (
+                <div className="grid grid-cols-1 items-center gap-4 md:grid-cols-[1fr_auto_1fr]">
+                  <div>
+                    <div className="mb-4 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
+                      {project.mockup.beforeLabel ?? "Было"}
                     </div>
+                    <Mockup label="Место для скрина" />
+                  </div>
+                  <Arrow />
+                  <div>
+                    <div className={`mb-4 text-center font-mono text-[10px] uppercase tracking-[0.3em] ${toneAccent}`}>
+                      {project.mockup.afterLabel ?? "Стало"}
+                    </div>
+                    <Mockup label="Место для скрина" />
                   </div>
                 </div>
+              ) : (
+                <Mockup label="Место для скрина" />
+              )}
+
+              {/* Onboarding hint */}
+              <div className="mt-6 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  className="h-3.5 w-3.5"
+                >
+                  <path d="M12 5v14" strokeLinecap="round" />
+                  <path d="m6 13 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>Прокрутите экран, чтобы увидеть больше</span>
               </div>
 
-              {/* Floating glass components */}
-              <div className="relative grid grid-cols-1 gap-4 self-center sm:grid-cols-2">
-                {project.components.map((c, i) => (
-                  <div
-                    key={c.label}
-                    className="animate-reveal rounded-2xl border border-white/15 bg-white/[0.06] p-5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
-                    style={{ animationDelay: `${100 + i * 80}ms` }}
-                  >
-                    <div className={`mb-2 font-mono text-[10px] uppercase tracking-widest ${toneAccent}`}>
-                      Component · 0{i + 1}
+              {/* Changes list */}
+              <div className="mt-12">
+                <div className={`mb-6 font-mono text-[10px] uppercase tracking-[0.3em] ${toneAccent}`}>
+                  {project.mockup.changesTitle}
+                </div>
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                  {project.mockup.changes.map((c, i) => (
+                    <div
+                      key={c.label}
+                      className="animate-reveal rounded-2xl border border-white/15 bg-white/[0.06] p-5 shadow-[0_10px_40px_-10px_rgba(0,0,0,0.5)] backdrop-blur-2xl"
+                      style={{ animationDelay: `${100 + i * 80}ms` }}
+                    >
+                      <div className={`mb-2 font-mono text-[10px] uppercase tracking-widest ${toneAccent}`}>
+                        0{i + 1}
+                      </div>
+                      <div className="mb-2 font-display text-base font-semibold">{c.label}</div>
+                      <p className="text-xs leading-relaxed text-muted">{c.note}</p>
                     </div>
-                    <div className="mb-2 font-display text-base font-semibold">{c.label}</div>
-                    <p className="text-xs leading-relaxed text-muted">{c.note}</p>
-                    {/* Skeleton preview */}
-                    <div className="mt-4 space-y-2">
-                      <div className="h-2 w-3/4 rounded-full bg-white/10" />
-                      <div className="h-2 w-1/2 rounded-full bg-white/10" />
-                    </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Context */}
+        {/* 02 — Контекст */}
         <section className="mx-auto grid max-w-7xl grid-cols-1 items-start gap-16 px-6 py-24 md:grid-cols-2">
           <div className="md:sticky md:top-32">
             <span className="mb-4 block font-mono text-xs uppercase tracking-[0.3em] text-accent-pink">
@@ -219,7 +319,7 @@ function ProjectPage() {
           <p className="text-lg leading-relaxed text-muted">{project.context}</p>
         </section>
 
-        {/* Approach */}
+        {/* 03 — Подход */}
         <section className="border-y border-glass-border bg-foreground/[0.02] px-6 py-24">
           <div className="mx-auto max-w-7xl">
             <div className="mb-16 max-w-2xl">
@@ -246,70 +346,43 @@ function ProjectPage() {
           </div>
         </section>
 
-        {/* Screens gallery — placeholders */}
+        {/* 04 — Решение */}
         <section className="mx-auto max-w-7xl px-6 py-24">
-          <span className="mb-8 block font-mono text-xs uppercase tracking-[0.3em] text-accent-pink">
-            04 — Экраны
+          <span className="mb-4 block font-mono text-xs uppercase tracking-[0.3em] text-accent-pink">
+            04 — Решение
           </span>
           <h2 className="mb-12 font-display text-3xl font-bold leading-tight md:text-4xl">
-            Ключевые состояния
+            Что сделала
           </h2>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            {project.screens.map((s, i) => (
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+            {project.solutionPoints.map((p, i) => (
               <div
-                key={s.title}
-                className="group relative overflow-hidden rounded-3xl border border-glass-border bg-white/[0.03] p-4 backdrop-blur-xl"
+                key={p.title}
+                className="animate-reveal rounded-3xl border border-glass-border bg-foreground/5 p-8 backdrop-blur-xl"
+                style={{ animationDelay: `${80 + i * 80}ms` }}
               >
-                <div className={`pointer-events-none absolute -inset-8 -z-10 rounded-full bg-gradient-to-br ${toneGradient} opacity-40 blur-3xl`} />
-                {/* Screen placeholder */}
-                <div className="relative flex aspect-[9/16] w-full items-center justify-center overflow-hidden rounded-2xl bg-gradient-to-br from-white/[0.06] to-white/[0.01] ring-1 ring-white/10">
-                  <div
-                    className="absolute inset-0 opacity-30"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px)",
-                      backgroundSize: "24px 24px",
-                    }}
-                  />
-                  <div className="relative text-center">
-                    <div className="mx-auto mb-2 grid h-8 w-8 place-items-center rounded-lg bg-white/5 ring-1 ring-white/10">
-                      <span className="font-mono text-[10px] text-muted">0{i + 1}</span>
-                    </div>
-                    <div className="font-mono text-[10px] uppercase tracking-widest text-muted">
-                      Место для скрина
-                    </div>
-                  </div>
+                <div className={`mb-3 font-mono text-[10px] uppercase tracking-widest ${toneAccent}`}>
+                  {String(i + 1).padStart(2, "0")}
                 </div>
-                <div className="mt-4 flex items-baseline justify-between px-2 pb-2">
-                  <div className="font-display text-base font-semibold">{s.title}</div>
-                  <div className="font-mono text-[10px] uppercase tracking-widest text-muted">
-                    {s.caption}
-                  </div>
-                </div>
+                <h3 className="mb-3 font-display text-xl font-semibold leading-snug">
+                  {p.title}
+                </h3>
+                <p className="leading-relaxed text-muted">{p.description}</p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* Outcomes */}
+        {/* 05 — Принцип */}
         <section className="mx-auto max-w-7xl px-6 py-24">
-          <span className="mb-8 block font-mono text-xs uppercase tracking-[0.3em] text-accent-pink">
-            05 — Результат
-          </span>
-          <h2 className="mb-12 font-display text-3xl font-bold leading-tight md:text-4xl">
-            Что изменилось
-          </h2>
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            {project.outcomes.map((o) => (
-              <div
-                key={o.label}
-                className="rounded-3xl border border-glass-border bg-foreground/5 p-8 backdrop-blur-xl"
-              >
-                <div className={`font-display text-4xl font-bold ${toneAccent}`}>{o.value}</div>
-                <div className="mt-3 text-sm text-muted">{o.label}</div>
-              </div>
-            ))}
+          <div className="relative overflow-hidden rounded-[2.5rem] border border-glass-border bg-foreground/5 p-10 backdrop-blur-xl md:p-16">
+            <div className={`absolute -inset-20 -z-10 bg-gradient-to-br ${toneGradient} opacity-40 blur-3xl`} />
+            <span className={`mb-6 block font-mono text-xs uppercase tracking-[0.3em] ${toneAccent}`}>
+              05 — Принцип, который я забрала с собой
+            </span>
+            <p className="max-w-4xl text-pretty font-display text-2xl font-light leading-snug md:text-4xl">
+              «{project.principle}»
+            </p>
           </div>
         </section>
 
