@@ -1,4 +1,6 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { projects } from "@/lib/projects";
+
 
 export const Route = createFileRoute("/")({
   component: Index,
