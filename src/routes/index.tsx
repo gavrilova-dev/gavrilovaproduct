@@ -210,9 +210,11 @@ function Index() {
                     ? "from-accent-pink/30 to-accent-pink/0"
                     : "from-white/20 to-white/0";
               return (
-                <article
-                  key={p.title}
-                  className={`group relative rounded-[2rem] bg-glass-border p-px transition-all ${glow}`}
+                <Link
+                  key={p.slug}
+                  to="/projects/$slug"
+                  params={{ slug: p.slug }}
+                  className={`group relative block rounded-[2rem] bg-glass-border p-px transition-all ${glow}`}
                 >
                   <div className="flex h-full flex-col rounded-[1.9rem] bg-background/80 p-8 backdrop-blur-3xl">
                     <div className="mb-6 flex flex-wrap gap-2">
@@ -249,11 +251,11 @@ function Index() {
                       className={`mt-auto grid aspect-[16/9] w-full place-items-center overflow-hidden rounded-2xl bg-gradient-to-br ${gradient} ring-1 ring-glass-border`}
                     >
                       <span className="font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
-                        {p.subtag}
+                        Открыть кейс →
                       </span>
                     </div>
                   </div>
-                </article>
+                </Link>
               );
             })}
           </div>
