@@ -377,7 +377,7 @@ function ProjectPage() {
               05 — Принцип, который я забрала с собой
             </span>
             <p className="max-w-4xl text-pretty font-display text-2xl font-light leading-snug md:text-4xl">
-              «{project.principle}»
+              {project.principle}
             </p>
           </div>
         </section>
