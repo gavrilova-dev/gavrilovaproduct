@@ -258,8 +258,20 @@ function Index() {
                 </Link>
               );
             })}
+
+            {/* Placeholder for 30+ more cases */}
+            <div className="group relative flex min-h-[280px] items-center justify-center rounded-[2rem] border border-dashed border-glass-border bg-foreground/[0.02] p-10 text-center backdrop-blur-3xl">
+              <p className="font-display text-2xl font-light leading-snug text-muted md:text-3xl">
+                …и ещё{" "}
+                <span className="bg-gradient-to-r from-accent-pink to-accent-blue bg-clip-text font-semibold text-transparent">
+                  30+ продуктовых задач
+                </span>{" "}
+                от идеи до релиза
+              </p>
+            </div>
           </div>
         </section>
+
 
         {/* Closing */}
         <section id="contact" className="animate-reveal mx-auto max-w-4xl px-6 py-40 text-center">

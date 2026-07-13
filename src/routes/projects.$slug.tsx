@@ -44,8 +44,15 @@ export const Route = createFileRoute("/projects/$slug")({
 
 /* ---------- Mockup pieces ---------- */
 
-function ScrollableScreenContent({ label }: { label: string }) {
-  // A tall placeholder "screen content" — user replaces later. Height > container triggers scroll.
+function ScrollableScreenContent({ label, image }: { label: string; image?: string }) {
+  if (image) {
+    return (
+      <div className="mockup-scroll relative h-full w-full overflow-y-auto bg-white">
+        <img src={image} alt={label} className="block w-full h-auto select-none" draggable={false} />
+      </div>
+    );
+  }
+  // Placeholder "screen content" — user replaces later. Height > container triggers scroll.
   return (
     <div className="mockup-scroll relative h-full w-full overflow-y-auto">
       <div className="animate-scroll-hint">
@@ -84,20 +91,20 @@ function ScrollableScreenContent({ label }: { label: string }) {
   );
 }
 
-function PhoneMockup({ label }: { label: string }) {
+function PhoneMockup({ label, image }: { label: string; image?: string }) {
   return (
     <div className="relative mx-auto w-full max-w-[280px]">
       <div className="relative aspect-[9/19] rounded-[3rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
         <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-background/90 ring-1 ring-white/10" />
         <div className="relative h-full w-full overflow-hidden rounded-[2.4rem] bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
-          <ScrollableScreenContent label={label} />
+          <ScrollableScreenContent label={label} image={image} />
         </div>
       </div>
     </div>
   );
 }
 
-function DesktopMockup({ label }: { label: string }) {
+function DesktopMockup({ label, image }: { label: string; image?: string }) {
   return (
     <div className="relative mx-auto w-full max-w-[640px]">
       <div className="relative aspect-[16/10] rounded-2xl border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
@@ -107,7 +114,7 @@ function DesktopMockup({ label }: { label: string }) {
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
         </div>
         <div className="relative h-[calc(100%-1.75rem)] w-full overflow-hidden rounded-xl bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
-          <ScrollableScreenContent label={label} />
+          <ScrollableScreenContent label={label} image={image} />
         </div>
       </div>
       {/* stand */}
@@ -116,6 +123,7 @@ function DesktopMockup({ label }: { label: string }) {
     </div>
   );
 }
+
 
 function Arrow() {
   return (
@@ -215,24 +223,9 @@ function ProjectPage() {
               {project.problem}
             </p>
           </div>
-
-          {/* Meta grid */}
-          <div className="mt-16 grid grid-cols-2 gap-6 rounded-3xl bg-foreground/5 p-8 ring-1 ring-glass-border backdrop-blur-xl md:grid-cols-4">
-            {[
-              { label: "Роль", value: project.role },
-              { label: "Команда", value: project.team },
-              { label: "Год", value: project.year },
-              { label: "Длительность", value: project.duration },
-            ].map((item) => (
-              <div key={item.label}>
-                <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-muted">
-                  {item.label}
-                </div>
-                <div className="text-sm font-medium">{item.value}</div>
-              </div>
-            ))}
-          </div>
         </section>
+
+
 
         {/* 01 — Ключевые моменты */}
         <section className="mx-auto max-w-7xl px-6 py-16">
@@ -251,35 +244,38 @@ function ProjectPage() {
                     <div className="mb-4 text-center font-mono text-[10px] uppercase tracking-[0.3em] text-muted">
                       {project.mockup.beforeLabel ?? "Было"}
                     </div>
-                    <Mockup label="Место для скрина" />
+                    <Mockup label="Место для скрина" image={project.mockup.beforeImage} />
                   </div>
                   <Arrow />
                   <div>
                     <div className={`mb-4 text-center font-mono text-[10px] uppercase tracking-[0.3em] ${toneAccent}`}>
                       {project.mockup.afterLabel ?? "Стало"}
                     </div>
-                    <Mockup label="Место для скрина" />
+                    <Mockup label="Место для скрина" image={project.mockup.afterImage} />
                   </div>
                 </div>
               ) : (
-                <Mockup label="Место для скрина" />
+                <Mockup label="Место для скрина" image={project.mockup.image} />
               )}
 
               {/* Onboarding hint */}
-              <div className="mt-6 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  className="h-3.5 w-3.5"
-                >
-                  <path d="M12 5v14" strokeLinecap="round" />
-                  <path d="m6 13 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                <span>Прокрутите экран, чтобы увидеть больше</span>
-              </div>
+              {!project.mockup.hideScrollHint && (
+                <div className="mt-6 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    className="h-3.5 w-3.5"
+                  >
+                    <path d="M12 5v14" strokeLinecap="round" />
+                    <path d="m6 13 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  <span>Прокрутите экран, чтобы увидеть больше</span>
+                </div>
+              )}
+
 
               {/* Changes list */}
               <div className="mt-12">
@@ -381,7 +377,7 @@ function ProjectPage() {
               05 — Принцип, который я забрала с собой
             </span>
             <p className="max-w-4xl text-pretty font-display text-2xl font-light leading-snug md:text-4xl">
-              «{project.principle}»
+              {project.principle}
             </p>
           </div>
         </section>
