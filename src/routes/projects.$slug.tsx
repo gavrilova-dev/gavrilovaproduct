@@ -222,7 +222,9 @@ function ProjectPage() {
             <p className="max-w-3xl text-pretty text-xl font-light leading-relaxed text-muted md:text-2xl">
               {project.problem}
             </p>
+          </div>
         </section>
+
 
 
         {/* 01 — Ключевые моменты */}
