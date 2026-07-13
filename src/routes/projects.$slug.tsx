@@ -44,8 +44,15 @@ export const Route = createFileRoute("/projects/$slug")({
 
 /* ---------- Mockup pieces ---------- */
 
-function ScrollableScreenContent({ label }: { label: string }) {
-  // A tall placeholder "screen content" — user replaces later. Height > container triggers scroll.
+function ScrollableScreenContent({ label, image }: { label: string; image?: string }) {
+  if (image) {
+    return (
+      <div className="mockup-scroll relative h-full w-full overflow-y-auto bg-white">
+        <img src={image} alt={label} className="block w-full h-auto select-none" draggable={false} />
+      </div>
+    );
+  }
+  // Placeholder "screen content" — user replaces later. Height > container triggers scroll.
   return (
     <div className="mockup-scroll relative h-full w-full overflow-y-auto">
       <div className="animate-scroll-hint">
@@ -84,7 +91,7 @@ function ScrollableScreenContent({ label }: { label: string }) {
   );
 }
 
-function PhoneMockup({ label }: { label: string }) {
+function PhoneMockup({ label, image }: { label: string; image?: string }) {
   return (
     <div className="relative mx-auto w-full max-w-[280px]">
       <div className="relative aspect-[9/19] rounded-[3rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
