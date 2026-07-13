@@ -97,14 +97,14 @@ function PhoneMockup({ label, image }: { label: string; image?: string }) {
       <div className="relative aspect-[9/19] rounded-[3rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
         <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-background/90 ring-1 ring-white/10" />
         <div className="relative h-full w-full overflow-hidden rounded-[2.4rem] bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
-          <ScrollableScreenContent label={label} />
+          <ScrollableScreenContent label={label} image={image} />
         </div>
       </div>
     </div>
   );
 }
 
-function DesktopMockup({ label }: { label: string }) {
+function DesktopMockup({ label, image }: { label: string; image?: string }) {
   return (
     <div className="relative mx-auto w-full max-w-[640px]">
       <div className="relative aspect-[16/10] rounded-2xl border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
@@ -114,7 +114,7 @@ function DesktopMockup({ label }: { label: string }) {
           <span className="h-2.5 w-2.5 rounded-full bg-white/15" />
         </div>
         <div className="relative h-[calc(100%-1.75rem)] w-full overflow-hidden rounded-xl bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
-          <ScrollableScreenContent label={label} />
+          <ScrollableScreenContent label={label} image={image} />
         </div>
       </div>
       {/* stand */}
@@ -123,6 +123,7 @@ function DesktopMockup({ label }: { label: string }) {
     </div>
   );
 }
+
 
 function Arrow() {
   return (
