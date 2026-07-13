@@ -14,10 +14,7 @@ export type Project = {
   title: string;
   problem: string;
   solution: string;
-  role: string;
-  team: string;
   year: string;
-  duration: string;
   context: string;
   approach: string[];
   /** Type of mockup shown in "Ключевые моменты" */
@@ -27,13 +24,23 @@ export type Project = {
     beforeAfter: boolean;
     beforeLabel?: string;
     afterLabel?: string;
-    /** Bullet list shown under the mockup(s) — key changes / floating components */
+    /** Optional real images used inside the mockup frames */
+    beforeImage?: string;
+    afterImage?: string;
+    image?: string;
+    /** Hide the "scroll to see more" onboarding hint */
+    hideScrollHint?: boolean;
+    /** Bullet list shown under the mockup(s) — key changes */
     changes: { label: string; note: string }[];
+    /** Always "Ключевые изменения" now, kept for future flexibility */
     changesTitle: string;
   };
   solutionPoints: SolutionPoint[];
   principle: string;
 };
+
+import motivBefore from "@/assets/motiv-before.png.asset.json";
+import motivAfter from "@/assets/motiv-after.png.asset.json";
 
 export const projects: Project[] = [
   {
@@ -46,23 +53,23 @@ export const projects: Project[] = [
       "Главная перегружена: пользователи не находят ключевое действие за первые 10 секунд.",
     solution:
       "Переосмыслила иерархию, вынесла один основной сценарий и убрала визуальный шум.",
-    role: "Product Designer",
-    team: "PM, 2 разработчика, аналитик",
     year: "2024",
-    duration: "6 недель",
     context:
       "После нескольких итераций главная превратилась в набор баннеров и промо-блоков. Пользователи не понимали, что здесь главное действие, а поддержка получала одни и те же вопросы про баланс и подключение услуг.",
     approach: [
-      "Собрала интервью с продактами и поддержкой, чтобы понять, зачем добавлялся каждый блок.",
-      "Провела аналитику скроллинга и кликов: большая часть пользователей не доходила до нижних блоков.",
-      "Сформулировала один главный сценарий и три вспомогательных, остальное — вынесла глубже.",
-      "Собрала прототип, протестировала на респондентах, доработала перед разработкой.",
+      "Изучила отзывы пользователей в Google Play, App Store и обращения в поддержку, чтобы понять, какие сценарии вызывают больше всего вопросов.",
+      "Разложила все элементы главного экрана на две группы: что действительно помогает пользователю, а что оказалось на главной только потому, что это нужно бизнесу.",
+      "Перестроила экран вокруг ключевых пользовательских задач: проверить баланс, пополнить счёт, управлять тарифом и быстро найти нужную услугу.",
+      "Собрала интерактивный прототип, протестировала его на респондентах и доработала перед передачей в разработку.",
     ],
     mockup: {
       device: "mobile",
       beforeAfter: true,
       beforeLabel: "Было",
       afterLabel: "Стало",
+      beforeImage: motivBefore.url,
+      afterImage: motivAfter.url,
+      hideScrollHint: true,
       changesTitle: "Ключевые изменения",
       changes: [
         { label: "Один визуальный блок", note: "Баланс и «Пополнить» объединены — понятно, что делать дальше." },
@@ -111,10 +118,7 @@ export const projects: Project[] = [
       "Каждая команда рисовала свои компоненты — консистентность и скорость страдали.",
     solution:
       "Собрала базовый UI Kit с токенами и правилами, ускорив запуск фич.",
-    role: "Product Designer, Design Lead",
-    team: "3 дизайнера, 4 фронтенд-инженера",
     year: "2023",
-    duration: "4 месяца",
     context:
       "В продукте параллельно работали три команды, каждая переизобретала кнопки, поля и модалки. Разработчики жаловались на бесконечные ревью и разные отступы.",
     approach: [
@@ -126,7 +130,7 @@ export const projects: Project[] = [
     mockup: {
       device: "desktop",
       beforeAfter: false,
-      changesTitle: "Ключевые компоненты",
+      changesTitle: "Ключевые изменения",
       changes: [
         { label: "Токены", note: "Семантические переменные — единая основа темы." },
         { label: "Кнопки", note: "5 вариантов, 3 размера, единые состояния." },
@@ -174,10 +178,7 @@ export const projects: Project[] = [
       "Пользователи хотели держать несколько номеров в одном аккаунте без хаоса.",
     solution:
       "Спроектировала логику переключения без потери контекста и с прозрачным биллингом.",
-    role: "Product Designer",
-    team: "PM, 3 разработчика, QA",
     year: "2024",
-    duration: "8 недель",
     context:
       "Аккаунт был жёстко привязан к одному номеру. Пользователи заводили несколько аккаунтов, путались в оплате и теряли историю.",
     approach: [
@@ -189,11 +190,12 @@ export const projects: Project[] = [
     mockup: {
       device: "mobile",
       beforeAfter: false,
-      changesTitle: "Ключевые компоненты",
+      changesTitle: "Ключевые изменения",
       changes: [
         { label: "Переключатель аккаунтов", note: "Всегда доступен в шапке, без ухода в настройки." },
         { label: "Карточка номера", note: "Статус, тариф, баланс — на одной поверхности." },
         { label: "Разбивка биллинга", note: "Один счёт, но видно, куда уходят деньги." },
+        { label: "Единая история", note: "Все действия по номерам собраны в одном месте." },
       ],
     },
     solutionPoints: [
@@ -231,10 +233,7 @@ export const projects: Project[] = [
       "Отвал на шаге оплаты: пользователи не доходили до успешного платежа.",
     solution:
       "Сократила сценарий до двух шагов, добавила понятные ошибки и подстановку сумм.",
-    role: "Product Designer",
-    team: "PM, 2 разработчика, аналитик",
     year: "2023",
-    duration: "5 недель",
     context:
       "Сценарий пополнения был растянут на 5 шагов с непонятными ошибками. Пользователи бросали процесс, а поддержка получала одинаковые жалобы.",
     approach: [
@@ -291,10 +290,7 @@ export const projects: Project[] = [
       "Нужно выпустить новую версию приложения, сохранив привычки текущих клиентов.",
     solution:
       "Вела продуктовую часть релиза: требования, сценарии, синк с разработкой, поддержка запуска.",
-    role: "Product Manager",
-    team: "PM, 2 дизайнера, 6 инженеров, аналитик",
     year: "2024",
-    duration: "5 месяцев",
     context:
       "Приложение устарело технически и визуально, но клиенты привыкли к его логике. Нужно было обновить, не сломав привычные сценарии.",
     approach: [
@@ -306,11 +302,12 @@ export const projects: Project[] = [
     mockup: {
       device: "mobile",
       beforeAfter: false,
-      changesTitle: "Ключевые компоненты",
+      changesTitle: "Ключевые изменения",
       changes: [
         { label: "Главная", note: "Быстрый доступ к самым частым действиям." },
         { label: "Перевод", note: "Привычный сценарий, перенесённый в новую систему." },
         { label: "Карта", note: "Управление лимитами и статусом в одном месте." },
+        { label: "Уведомления", note: "Понятные статусы операций без лишнего шума." },
       ],
     },
     solutionPoints: [
