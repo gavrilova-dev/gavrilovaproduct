@@ -222,25 +222,8 @@ function ProjectPage() {
             <p className="max-w-3xl text-pretty text-xl font-light leading-relaxed text-muted md:text-2xl">
               {project.problem}
             </p>
-          </div>
-
-          {/* Meta grid */}
-          <div className="mt-16 grid grid-cols-2 gap-6 rounded-3xl bg-foreground/5 p-8 ring-1 ring-glass-border backdrop-blur-xl md:grid-cols-4">
-            {[
-              { label: "Роль", value: project.role },
-              { label: "Команда", value: project.team },
-              { label: "Год", value: project.year },
-              { label: "Длительность", value: project.duration },
-            ].map((item) => (
-              <div key={item.label}>
-                <div className="mb-2 font-mono text-[10px] uppercase tracking-widest text-muted">
-                  {item.label}
-                </div>
-                <div className="text-sm font-medium">{item.value}</div>
-              </div>
-            ))}
-          </div>
         </section>
+
 
         {/* 01 — Ключевые моменты */}
         <section className="mx-auto max-w-7xl px-6 py-16">
