@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getProjectBySlug, projects, type Project } from "@/lib/projects";
+import { fetchAllProjects, fetchProject, type Project } from "@/lib/project-service";
+
 
 export const Route = createFileRoute("/projects/$slug")({
   loader: ({ params }): { project: Project } => {
