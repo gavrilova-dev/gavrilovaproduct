@@ -44,10 +44,11 @@ export async function saveProject(project: Project): Promise<void> {
   const { error } = await supabase
     .from("projects")
     .upsert(
-      { slug: project.slug, data: project as unknown as Record<string, unknown>, sort_order },
+      { slug: project.slug, data: JSON.parse(JSON.stringify(project)), sort_order },
       { onConflict: "slug" },
     );
   if (error) throw error;
+
 }
 
 export async function resetProject(slug: string): Promise<void> {
