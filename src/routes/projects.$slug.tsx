@@ -153,7 +153,7 @@ function Arrow() {
 /* ---------- Page ---------- */
 
 function ProjectPage() {
-  const { project } = Route.useLoaderData() as { project: Project };
+  const { project, all } = Route.useLoaderData() as { project: Project; all: Project[] };
 
   const toneAccent =
     project.tone === "blue"
