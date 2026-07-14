@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { projects } from "@/lib/projects";
+import { fetchAllProjects, type Project } from "@/lib/project-service";
 
 
 export const Route = createFileRoute("/")({
+  loader: (): Promise<Project[]> => fetchAllProjects(),
   component: Index,
 });
+
 
 const processSteps = [
   { label: "Проблема", detail: "Идентификация боли" },
@@ -27,6 +29,8 @@ const roles = [
 
 
 function Index() {
+  const projects = Route.useLoaderData() as Project[];
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground selection:bg-accent-pink/30">
       {/* Aurora background */}

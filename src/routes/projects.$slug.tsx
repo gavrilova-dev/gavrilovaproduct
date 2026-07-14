@@ -1,12 +1,15 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getProjectBySlug, projects, type Project } from "@/lib/projects";
+import { fetchAllProjects, fetchProject, type Project } from "@/lib/project-service";
+
 
 export const Route = createFileRoute("/projects/$slug")({
-  loader: ({ params }): { project: Project } => {
-    const project = getProjectBySlug(params.slug);
+  loader: async ({ params }): Promise<{ project: Project; all: Project[] }> => {
+    const all = await fetchAllProjects();
+    const project = all.find((p) => p.slug === params.slug);
     if (!project) throw notFound();
-    return { project };
+    return { project, all };
   },
+
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
@@ -150,7 +153,7 @@ function Arrow() {
 /* ---------- Page ---------- */
 
 function ProjectPage() {
-  const { project } = Route.useLoaderData() as { project: Project };
+  const { project, all } = Route.useLoaderData() as { project: Project; all: Project[] };
 
   const toneAccent =
     project.tone === "blue"
@@ -167,8 +170,9 @@ function ProjectPage() {
   const toneOrb =
     project.tone === "blue" ? "bg-accent-blue/20" : "bg-accent-pink/20";
 
-  const currentIndex = projects.findIndex((p) => p.slug === project.slug);
-  const next = projects[(currentIndex + 1) % projects.length];
+  const currentIndex = all.findIndex((p) => p.slug === project.slug);
+  const next = all[(currentIndex + 1) % all.length];
+
 
   const Mockup = project.mockup.device === "desktop" ? DesktopMockup : PhoneMockup;
   const isBeforeAfter = project.mockup.beforeAfter;
