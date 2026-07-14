@@ -29,6 +29,8 @@ const roles = [
 
 
 function Index() {
+  const projects = Route.useLoaderData();
+
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground selection:bg-accent-pink/30">
       {/* Aurora background */}
