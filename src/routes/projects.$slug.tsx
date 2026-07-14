@@ -3,11 +3,13 @@ import { fetchAllProjects, fetchProject, type Project } from "@/lib/project-serv
 
 
 export const Route = createFileRoute("/projects/$slug")({
-  loader: ({ params }): { project: Project } => {
-    const project = getProjectBySlug(params.slug);
+  loader: async ({ params }): Promise<{ project: Project; all: Project[] }> => {
+    const all = await fetchAllProjects();
+    const project = all.find((p) => p.slug === params.slug);
     if (!project) throw notFound();
-    return { project };
+    return { project, all };
   },
+
   head: ({ loaderData }) => {
     if (!loaderData) {
       return {
