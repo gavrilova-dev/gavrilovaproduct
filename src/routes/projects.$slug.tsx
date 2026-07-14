@@ -258,23 +258,8 @@ function ProjectPage() {
                 <Mockup label="Место для скрина" image={project.mockup.image} />
               )}
 
-              {/* Onboarding hint */}
-              {!project.mockup.hideScrollHint && (
-                <div className="mt-6 flex items-center justify-center gap-2 font-mono text-[10px] uppercase tracking-[0.25em] text-muted">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    className="h-3.5 w-3.5"
-                  >
-                    <path d="M12 5v14" strokeLinecap="round" />
-                    <path d="m6 13 6 6 6-6" strokeLinecap="round" strokeLinejoin="round" />
-                  </svg>
-                  <span>Прокрутите экран, чтобы увидеть больше</span>
-                </div>
-              )}
+
+
 
 
               {/* Changes list */}
