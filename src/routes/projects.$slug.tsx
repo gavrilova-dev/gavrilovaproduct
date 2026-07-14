@@ -170,8 +170,9 @@ function ProjectPage() {
   const toneOrb =
     project.tone === "blue" ? "bg-accent-blue/20" : "bg-accent-pink/20";
 
-  const currentIndex = projects.findIndex((p) => p.slug === project.slug);
-  const next = projects[(currentIndex + 1) % projects.length];
+  const currentIndex = all.findIndex((p) => p.slug === project.slug);
+  const next = all[(currentIndex + 1) % all.length];
+
 
   const Mockup = project.mockup.device === "desktop" ? DesktopMockup : PhoneMockup;
   const isBeforeAfter = project.mockup.beforeAfter;
