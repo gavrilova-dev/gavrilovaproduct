@@ -1,10 +1,12 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { projects } from "@/lib/projects";
+import { fetchAllProjects, type Project } from "@/lib/project-service";
 
 
 export const Route = createFileRoute("/")({
+  loader: (): Promise<Project[]> => fetchAllProjects(),
   component: Index,
 });
+
 
 const processSteps = [
   { label: "Проблема", detail: "Идентификация боли" },
