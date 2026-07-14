@@ -88,10 +88,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         property: "og:description",
         content:
-          "За каждым интерфейсом стоит решение. Product Profile о продуктовом мышлении.",
+          "Интерактивный Product Profile Алены Гавриловой. Не портфолио, а цифровой продукт о том, как рождаются продуктовые решения: от проблемы до релиза.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Алена Гаврилова — Product Designer & Strategy" },
+      { name: "twitter:description", content: "Интерактивный Product Profile Алены Гавриловой. Не портфолио, а цифровой продукт о том, как рождаются продуктовые решения: от проблемы до релиза." },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/N8XFSKPml5S5TVev32LJchUeP722/social-images/social-1784019536590-elegant-minimalist-monogram-favicon-icon-where-let.webp" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/N8XFSKPml5S5TVev32LJchUeP722/social-images/social-1784019536590-elegant-minimalist-monogram-favicon-icon-where-let.webp" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
