@@ -29,7 +29,7 @@ const roles = [
 
 
 function Index() {
-  const projects = Route.useLoaderData();
+  const projects = Route.useLoaderData() as Project[];
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground selection:bg-accent-pink/30">
