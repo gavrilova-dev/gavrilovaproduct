@@ -69,13 +69,11 @@ export async function uploadProjectImage(file: File): Promise<string> {
 
 export async function isCurrentUserAdmin(userId: string | null): Promise<boolean> {
   if (!userId) return false;
-  const { data, error } = await supabase
-    .from("user_roles")
-    .select("role")
-    .eq("user_id", userId)
-    .eq("role", "admin")
-    .maybeSingle();
-  if (error) return false;
+  const { data, error } = await supabase.rpc("current_user_is_admin");
+  if (error) {
+    console.error("current_user_is_admin", error);
+    return false;
+  }
   return !!data;
 }
 
