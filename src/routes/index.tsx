@@ -56,13 +56,41 @@ function Index() {
             <a href="#projects" className="transition-colors hover:text-accent-pink">Проекты</a>
             <a href="#contact" className="transition-colors hover:text-accent-pink">Контакты</a>
           </div>
-          <a
-            href="#contact"
-            className="hidden shrink-0 rounded-full bg-foreground px-4 py-2 text-xs font-bold uppercase tracking-widest text-background transition-transform hover:scale-105 sm:inline-flex"
-          >
-            Связаться
-          </a>
-        </div>
+          <div className="flex shrink-0 items-center gap-2">
+            <a
+              href="tel:+79002121111"
+              aria-label="Позвонить +7 900 212 11 11"
+              title="+7 900 212 11 11"
+              className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-glass-border text-foreground transition-colors hover:bg-accent-pink/10 hover:text-accent-pink"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </a>
+            <a
+              href="https://t.me/GavrilovaAY"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Telegram @GavrilovaAY"
+              title="@GavrilovaAY"
+              className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-glass-border text-foreground transition-colors hover:bg-accent-blue/10 hover:text-accent-blue"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                <path d="M21.05 3.05 2.6 10.2c-1.26.49-1.25 1.19-.23 1.5l4.73 1.48 10.94-6.9c.52-.32.99-.15.6.2l-8.86 8 -.33 4.86c.49 0 .7-.22.97-.48l2.33-2.27 4.83 3.57c.89.49 1.53.24 1.75-.82L21.9 4.29c.32-1.31-.5-1.9-1.35-1.55z" />
+              </svg>
+            </a>
+            <a
+              href="mailto:alenakudrs@gmail.com"
+              aria-label="Написать на alenakudrs@gmail.com"
+              title="alenakudrs@gmail.com"
+              className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-glass-border text-foreground transition-colors hover:bg-accent-pink/10 hover:text-accent-pink"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" />
+              </svg>
+            </a>
+          </div>
       </nav>
 
       <main className="relative z-10">
