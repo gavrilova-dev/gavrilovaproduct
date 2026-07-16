@@ -180,7 +180,7 @@ function ProjectPage() {
       ? "text-accent-blue"
       : project.tone === "pink"
         ? "text-accent-pink"
-        : "text-foreground";
+        : "text-accent-pink";
   const toneGradient =
     project.tone === "blue"
       ? "from-accent-blue/40 via-accent-blue/10 to-transparent"
