@@ -126,7 +126,7 @@ function Index() {
             </span>
             <h3 className="mb-8 font-display text-4xl font-bold leading-tight md:text-5xl">
               Интерфейс — <br />
-              лишь инструмент.
+              лишь инструмент
             </h3>
             <div className="space-y-6 text-lg leading-relaxed text-muted">
               <p>
