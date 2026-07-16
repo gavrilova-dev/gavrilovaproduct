@@ -91,6 +91,7 @@ function Index() {
               </svg>
             </a>
           </div>
+        </div>
       </nav>
 
       <main className="relative z-10">
