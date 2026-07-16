@@ -1,4 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
+import { useState } from "react";
 import { fetchAllProjects, type Project } from "@/lib/project-service";
 
 
@@ -28,6 +29,63 @@ const roles = [
 ];
 
 
+function ContactCard({
+  label,
+  value,
+  copyValue,
+  href,
+  cta,
+  tone,
+  external,
+}: {
+  label: string;
+  value: string;
+  copyValue: string;
+  href: string;
+  cta: string;
+  tone: "pink" | "blue";
+  external?: boolean;
+}) {
+  const [copied, setCopied] = useState(false);
+  const accent = tone === "pink" ? "text-accent-pink" : "text-accent-blue";
+  const btn =
+    tone === "pink"
+      ? "bg-accent-pink text-white shadow-lg shadow-accent-pink/20 hover:scale-[1.03]"
+      : "bg-accent-blue text-white shadow-lg shadow-accent-blue/20 hover:scale-[1.03]";
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(copyValue);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1600);
+    } catch {
+      /* ignore */
+    }
+  };
+  return (
+    <div className="flex flex-col gap-4 rounded-3xl border border-glass-border bg-foreground/5 p-6 text-left backdrop-blur-xl">
+      <div className={`font-mono text-[10px] uppercase tracking-[0.3em] ${accent}`}>{label}</div>
+      <button
+        type="button"
+        onClick={copy}
+        title="Скопировать"
+        className="group flex items-center justify-between gap-3 rounded-2xl bg-background/40 px-4 py-3 ring-1 ring-glass-border transition-colors hover:bg-background/60"
+      >
+        <span className="truncate font-display text-base text-foreground">{value}</span>
+        <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted group-hover:text-foreground">
+          {copied ? "Скопировано" : "Копировать"}
+        </span>
+      </button>
+      <a
+        href={href}
+        {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
+        className={`inline-flex items-center justify-center rounded-full px-6 py-3 text-sm font-bold transition-transform ${btn}`}
+      >
+        {cta}
+      </a>
+    </div>
+  );
+}
+
 function Index() {
   const projects = Route.useLoaderData() as Project[];
 
@@ -56,12 +114,41 @@ function Index() {
             <a href="#projects" className="transition-colors hover:text-accent-pink">Проекты</a>
             <a href="#contact" className="transition-colors hover:text-accent-pink">Контакты</a>
           </div>
-          <a
-            href="#contact"
-            className="hidden shrink-0 rounded-full bg-foreground px-4 py-2 text-xs font-bold uppercase tracking-widest text-background transition-transform hover:scale-105 sm:inline-flex"
-          >
-            Связаться
-          </a>
+          <div className="flex shrink-0 items-center gap-2">
+            <a
+              href="tel:+79002121111"
+              aria-label="Позвонить +7 900 212 11 11"
+              title="+7 900 212 11 11"
+              className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-glass-border text-foreground transition-colors hover:bg-accent-pink/10 hover:text-accent-pink"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.18 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </a>
+            <a
+              href="https://t.me/GavrilovaAY"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="Telegram @GavrilovaAY"
+              title="@GavrilovaAY"
+              className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-glass-border text-foreground transition-colors hover:bg-accent-blue/10 hover:text-accent-blue"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4">
+                <path d="M21.05 3.05 2.6 10.2c-1.26.49-1.25 1.19-.23 1.5l4.73 1.48 10.94-6.9c.52-.32.99-.15.6.2l-8.86 8 -.33 4.86c.49 0 .7-.22.97-.48l2.33-2.27 4.83 3.57c.89.49 1.53.24 1.75-.82L21.9 4.29c.32-1.31-.5-1.9-1.35-1.55z" />
+              </svg>
+            </a>
+            <a
+              href="mailto:alenakudrs@gmail.com"
+              aria-label="Написать на alenakudrs@gmail.com"
+              title="alenakudrs@gmail.com"
+              className="grid h-10 w-10 place-items-center rounded-full ring-1 ring-glass-border text-foreground transition-colors hover:bg-accent-pink/10 hover:text-accent-pink"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" className="h-4 w-4">
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+                <path d="m3 7 9 6 9-6" />
+              </svg>
+            </a>
+          </div>
         </div>
       </nav>
 
@@ -77,7 +164,7 @@ function Index() {
               <span className="bg-gradient-to-r from-accent-pink to-accent-blue bg-clip-text text-transparent">
                 интерфейсом
               </span>{" "}
-              стоит решение.
+              стоит решение
             </h1>
             <p className="max-w-2xl text-pretty text-xl font-light leading-relaxed text-muted md:text-2xl">
               Это не портфолио в привычном понимании. Это цифровой продукт, который сам
@@ -97,7 +184,7 @@ function Index() {
             </span>
             <h3 className="mb-8 font-display text-4xl font-bold leading-tight md:text-5xl">
               Интерфейс — <br />
-              лишь инструмент.
+              лишь инструмент
             </h3>
             <div className="space-y-6 text-lg leading-relaxed text-muted">
               <p>
@@ -143,7 +230,7 @@ function Index() {
                 02 — Путь решения
               </span>
               <h3 className="mb-4 font-display text-4xl font-bold md:text-5xl">
-                Каждая задача проходит одинаковый маршрут.
+                Каждая задача проходит одинаковый маршрут
               </h3>
               <p className="text-lg text-muted">
                 От проблемы до релиза и дальнейшего развития. Не линейка шагов, а способ думать.
@@ -291,19 +378,32 @@ function Index() {
           <p className="mb-12 text-xl text-muted">
             Мыслю системно, работаю в компромиссах и довожу решения до работающего продукта.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-6">
-            <a
-              href="https://t.me/"
-              className="rounded-full bg-accent-pink px-8 py-4 font-bold text-white shadow-lg shadow-accent-pink/20 transition-transform hover:scale-105"
-            >
-              Написать в Telegram
-            </a>
-            <a
-              href="mailto:hello@example.com"
-              className="rounded-full px-8 py-4 font-bold ring-1 ring-glass-border transition-colors hover:bg-white/5"
-            >
-              Написать на почту
-            </a>
+          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
+            <ContactCard
+              label="Телефон"
+              value="+7 900 212 11 11"
+              copyValue="+79002121111"
+              href="tel:+79002121111"
+              cta="Позвонить"
+              tone="pink"
+            />
+            <ContactCard
+              label="Telegram"
+              value="@GavrilovaAY"
+              copyValue="@GavrilovaAY"
+              href="https://t.me/GavrilovaAY"
+              cta="Написать в Telegram"
+              tone="blue"
+              external
+            />
+            <ContactCard
+              label="Email"
+              value="alenakudrs@gmail.com"
+              copyValue="alenakudrs@gmail.com"
+              href="mailto:alenakudrs@gmail.com"
+              cta="Написать письмо"
+              tone="pink"
+            />
           </div>
         </section>
       </main>

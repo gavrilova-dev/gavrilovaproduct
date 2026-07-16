@@ -97,10 +97,30 @@ function ScrollableScreenContent({ label, image }: { label: string; image?: stri
 function PhoneMockup({ label, image }: { label: string; image?: string }) {
   return (
     <div className="relative mx-auto w-full max-w-[280px]">
-      <div className="relative aspect-[9/19] rounded-[3rem] border border-white/15 bg-gradient-to-b from-white/10 to-white/[0.02] p-3 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.6)] backdrop-blur-xl">
-        <div className="absolute left-1/2 top-3 z-10 h-6 w-24 -translate-x-1/2 rounded-full bg-background/90 ring-1 ring-white/10" />
-        <div className="relative h-full w-full overflow-hidden rounded-[2.4rem] bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
-          <ScrollableScreenContent label={label} image={image} />
+      {/* Metallic corpus: layered gradients + polished bezel */}
+      <div
+        className="relative aspect-[9/19] rounded-[3rem] p-[3px] shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]"
+        style={{
+          backgroundImage:
+            "linear-gradient(145deg, #e8e8ec 0%, #9ca0a8 18%, #3a3d44 45%, #1a1c22 60%, #4a4d55 80%, #cfd2d8 100%)",
+        }}
+      >
+        <div
+          className="relative h-full w-full rounded-[2.85rem] p-[6px]"
+          style={{
+            backgroundImage:
+              "linear-gradient(160deg, #2a2c33 0%, #16181d 40%, #0d0e12 70%, #23262c 100%)",
+          }}
+        >
+          {/* side button highlights */}
+          <span className="pointer-events-none absolute -left-[3px] top-24 h-14 w-[3px] rounded-l bg-gradient-to-b from-white/30 via-white/5 to-white/20" />
+          <span className="pointer-events-none absolute -right-[3px] top-32 h-20 w-[3px] rounded-r bg-gradient-to-b from-white/25 via-white/5 to-white/15" />
+
+          <div className="relative h-full w-full overflow-hidden rounded-[2.4rem] bg-gradient-to-br from-background via-background/90 to-background ring-1 ring-white/5">
+            {/* Dynamic Island — floating pill with breathing room from top */}
+            <div className="pointer-events-none absolute left-1/2 top-[10px] z-20 h-[26px] w-[92px] -translate-x-1/2 rounded-full bg-black ring-1 ring-white/10 shadow-[inset_0_0_0_1px_rgba(255,255,255,0.04)]" />
+            <ScrollableScreenContent label={label} image={image} />
+          </div>
         </div>
       </div>
     </div>
@@ -160,7 +180,7 @@ function ProjectPage() {
       ? "text-accent-blue"
       : project.tone === "pink"
         ? "text-accent-pink"
-        : "text-foreground";
+        : "text-accent-pink";
   const toneGradient =
     project.tone === "blue"
       ? "from-accent-blue/40 via-accent-blue/10 to-transparent"
