@@ -321,19 +321,32 @@ function Index() {
           <p className="mb-12 text-xl text-muted">
             Мыслю системно, работаю в компромиссах и довожу решения до работающего продукта.
           </p>
-          <div className="flex flex-col justify-center gap-4 sm:flex-row sm:gap-6">
-            <a
-              href="https://t.me/"
-              className="rounded-full bg-accent-pink px-8 py-4 font-bold text-white shadow-lg shadow-accent-pink/20 transition-transform hover:scale-105"
-            >
-              Написать в Telegram
-            </a>
-            <a
-              href="mailto:hello@example.com"
-              className="rounded-full px-8 py-4 font-bold ring-1 ring-glass-border transition-colors hover:bg-white/5"
-            >
-              Написать на почту
-            </a>
+          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
+            <ContactCard
+              label="Телефон"
+              value="+7 900 212 11 11"
+              copyValue="+79002121111"
+              href="tel:+79002121111"
+              cta="Позвонить"
+              tone="pink"
+            />
+            <ContactCard
+              label="Telegram"
+              value="@GavrilovaAY"
+              copyValue="@GavrilovaAY"
+              href="https://t.me/GavrilovaAY"
+              cta="Написать в Telegram"
+              tone="blue"
+              external
+            />
+            <ContactCard
+              label="Email"
+              value="alenakudrs@gmail.com"
+              copyValue="alenakudrs@gmail.com"
+              href="mailto:alenakudrs@gmail.com"
+              cta="Написать письмо"
+              tone="pink"
+            />
           </div>
         </section>
       </main>
