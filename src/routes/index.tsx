@@ -106,7 +106,7 @@ function Index() {
               <span className="bg-gradient-to-r from-accent-pink to-accent-blue bg-clip-text text-transparent">
                 интерфейсом
               </span>{" "}
-              стоит решение.
+              стоит решение
             </h1>
             <p className="max-w-2xl text-pretty text-xl font-light leading-relaxed text-muted md:text-2xl">
               Это не портфолио в привычном понимании. Это цифровой продукт, который сам
