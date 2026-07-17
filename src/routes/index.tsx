@@ -25,7 +25,6 @@ const roles = [
   { title: "Product Designer", note: "Проектирую опыт целиком — от идеи до релиза." },
   { title: "UX Designer", note: "Работаю со сценариями, а не с экранами." },
   { title: "Product Manager", note: "Формулирую требования и веду фичи в продакшн." },
-  { title: "UX Writer", note: "Слово в интерфейсе — тоже часть решения." },
 ];
 
 
