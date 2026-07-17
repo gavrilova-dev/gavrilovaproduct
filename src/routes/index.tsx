@@ -356,11 +356,10 @@ function Index() {
           <p className="mb-12 text-xl text-muted">
             Мыслю системно, работаю в компромиссах и довожу решения до работающего продукта.
           </p>
-          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             <ContactCard
               label="Телефон"
               value="+7 900 212 11 11"
-              copyValue="+79002121111"
               href="tel:+79002121111"
               cta="Позвонить"
               tone="pink"
@@ -368,7 +367,6 @@ function Index() {
             <ContactCard
               label="Telegram"
               value="@GavrilovaAY"
-              copyValue="@GavrilovaAY"
               href="https://t.me/GavrilovaAY"
               cta="Написать в Telegram"
               tone="blue"
@@ -377,7 +375,6 @@ function Index() {
             <ContactCard
               label="Email"
               value="alenakudrs@gmail.com"
-              copyValue="alenakudrs@gmail.com"
               href="mailto:alenakudrs@gmail.com"
               cta="Написать письмо"
               tone="pink"
