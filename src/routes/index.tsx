@@ -1,5 +1,4 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { fetchAllProjects, type Project } from "@/lib/project-service";
 
 
@@ -25,14 +24,12 @@ const roles = [
   { title: "Product Designer", note: "Проектирую опыт целиком — от идеи до релиза." },
   { title: "UX Designer", note: "Работаю со сценариями, а не с экранами." },
   { title: "Product Manager", note: "Формулирую требования и веду фичи в продакшн." },
-  { title: "UX Writer", note: "Слово в интерфейсе — тоже часть решения." },
 ];
 
 
 function ContactCard({
   label,
   value,
-  copyValue,
   href,
   cta,
   tone,
@@ -40,41 +37,22 @@ function ContactCard({
 }: {
   label: string;
   value: string;
-  copyValue: string;
   href: string;
   cta: string;
   tone: "pink" | "blue";
   external?: boolean;
 }) {
-  const [copied, setCopied] = useState(false);
   const accent = tone === "pink" ? "text-accent-pink" : "text-accent-blue";
   const btn =
     tone === "pink"
       ? "bg-accent-pink text-white shadow-lg shadow-accent-pink/20 hover:scale-[1.03]"
       : "bg-accent-blue text-white shadow-lg shadow-accent-blue/20 hover:scale-[1.03]";
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(copyValue);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      /* ignore */
-    }
-  };
   return (
     <div className="flex flex-col gap-4 rounded-3xl border border-glass-border bg-foreground/5 p-6 text-left backdrop-blur-xl">
       <div className={`font-mono text-[10px] uppercase tracking-[0.3em] ${accent}`}>{label}</div>
-      <button
-        type="button"
-        onClick={copy}
-        title="Скопировать"
-        className="group flex items-center justify-between gap-3 rounded-2xl bg-background/40 px-4 py-3 ring-1 ring-glass-border transition-colors hover:bg-background/60"
-      >
-        <span className="truncate font-display text-base text-foreground">{value}</span>
-        <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest text-muted group-hover:text-foreground">
-          {copied ? "Скопировано" : "Копировать"}
-        </span>
-      </button>
+      <div className="rounded-2xl bg-background/40 px-4 py-3 ring-1 ring-glass-border">
+        <span className="block truncate font-display text-base text-foreground">{value}</span>
+      </div>
       <a
         href={href}
         {...(external ? { target: "_blank", rel: "noreferrer" } : {})}
@@ -378,11 +356,10 @@ function Index() {
           <p className="mb-12 text-xl text-muted">
             Мыслю системно, работаю в компромиссах и довожу решения до работающего продукта.
           </p>
-          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="mx-auto grid max-w-3xl grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             <ContactCard
               label="Телефон"
               value="+7 900 212 11 11"
-              copyValue="+79002121111"
               href="tel:+79002121111"
               cta="Позвонить"
               tone="pink"
@@ -390,7 +367,6 @@ function Index() {
             <ContactCard
               label="Telegram"
               value="@GavrilovaAY"
-              copyValue="@GavrilovaAY"
               href="https://t.me/GavrilovaAY"
               cta="Написать в Telegram"
               tone="blue"
@@ -399,7 +375,6 @@ function Index() {
             <ContactCard
               label="Email"
               value="alenakudrs@gmail.com"
-              copyValue="alenakudrs@gmail.com"
               href="mailto:alenakudrs@gmail.com"
               cta="Написать письмо"
               tone="pink"

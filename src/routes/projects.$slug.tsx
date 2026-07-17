@@ -218,6 +218,7 @@ function ProjectPage() {
           </Link>
           <Link
             to="/"
+            hash="projects"
             className="shrink-0 rounded-full px-4 py-2 text-xs font-bold uppercase tracking-widest ring-1 ring-glass-border transition-colors hover:bg-white/5"
           >
             ← Все кейсы
