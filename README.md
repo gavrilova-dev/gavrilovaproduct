@@ -1,5 +1,7 @@
 # Gavrilova Product Portfolio
 
+![Gavrilova Product Portfolio](docs/preview.png)
+
 Персональный сайт-портфолио Product Designer / Product Manager.
 
 🔗 Website: https://gavrilovaproduct.ru
