@@ -1,0 +1,68 @@
+@import "tailwindcss" source(none);
+@source "../src";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-background: oklch(0.15 0.02 260);
+  --color-foreground: oklch(0.98 0.01 260);
+  --color-muted: oklch(0.98 0.01 260 / 0.6);
+  --color-muted-foreground: oklch(0.98 0.01 260 / 0.6);
+  --color-accent-pink: oklch(0.7 0.25 330);
+  --color-accent-blue: oklch(0.65 0.2 250);
+  --color-glass-border: oklch(1 0 0 / 0.1);
+  --color-border: oklch(1 0 0 / 0.1);
+  --color-primary: oklch(0.7 0.25 330);
+  --color-primary-foreground: oklch(0.15 0.02 260);
+  --color-ring: oklch(0.7 0.25 330);
+
+  --animate-float-slow: float 20s ease-in-out infinite;
+  --animate-reveal: reveal 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(2%, 4%) scale(1.1); }
+  66% { transform: translate(-2%, 2%) scale(0.9); }
+}
+
+@keyframes reveal {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html, body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-body);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@keyframes scroll-hint {
+  0%   { transform: translateY(0); }
+  15%  { transform: translateY(-24px); }
+  30%  { transform: translateY(-24px); }
+  50%  { transform: translateY(0); }
+  100% { transform: translateY(0); }
+}
+
+.animate-scroll-hint {
+  animation: scroll-hint 3.6s ease-in-out 0.8s 2;
+}
+
+.mockup-scroll {
+  scrollbar-width: none;
+}
+.mockup-scroll::-webkit-scrollbar { display: none; }
